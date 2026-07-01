@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #E8590C;
+      --text: #1A1A2E;
+      --text-light: #4A4A68;
+      --bg: #FFFFFF;
+      --bg-alt: #F8F9FA;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    body { font-family: var(--font); color: var(--text); background: var(--bg); }
+    img { max-width: 100%; height: auto; display: block; }
+    .section { padding: 48px 16px; }
+    .section-alt { background: var(--bg-alt); }
+    .section-dark { background: var(--text); color: #fff; }
+    .inner { max-width: 1100px; margin: 0 auto; }
+    .narrow { max-width: 680px; margin: 0 auto; }
+
+    /* HERO — STORY OPENER */
+    .hero {
+      padding: 64px 16px;
+      text-align: center;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7));
+    }
+    .hero-content { position: relative; z-index: 1; color: #fff; }
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .hero .sub {
+      font-size: 1.125rem;
+      line-height: 1.5;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+    .cta {
+      display: inline-block;
+      padding: 16px 40px;
+      font-size: 1.125rem;
+      font-weight: 700;
+      font-family: var(--font);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* LOGO BAR */
+    .logo-bar { padding: 32px 16px; text-align: center; background: #F8F9FA; border-top: 1px solid #E9ECEF; border-bottom: 1px solid #E9ECEF; }
+    .logo-bar-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #ADB5BD; margin-bottom: 20px; }
+    .logo-bar-logos { display: flex; justify-content: center; align-items: center; gap: 32px; flex-wrap: wrap; }
+    .logo-bar-logos img { height: 28px; width: auto; filter: grayscale(100%); opacity: 0.5; transition: opacity 0.2s, filter 0.2s; }
+    .logo-bar-logos img:hover { filter: grayscale(0%); opacity: 1; }
+
+    /* STORY NARRATIVE BLOCKS */
+    .story-block {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .story-block .story-hook {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+    .story-block p {
+      font-size: 1.0625rem;
+      color: var(--text-light);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .story-block p:last-child { margin-bottom: 0; }
+    .story-block .story-highlight {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* STRUGGLE CALLOUT */
+    .struggle-list {
+      list-style: none;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .struggle-list li {
+      font-size: 1.0625rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      padding: 12px 0 12px 36px;
+      position: relative;
+      border-bottom: 1px solid #E9ECEF;
+    }
+    .struggle-list li:last-child { border-bottom: none; }
+    .struggle-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 18px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #FFF5F5;
+      border: 2px solid #E03131;
+    }
+
+    /* DISCOVERY SECTION */
+    .discovery-heading {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    /* TRANSFORMATION RESULTS */
+    .results-heading {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .result-card {
+      text-align: center;
+      padding: 32px 24px;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .result-stat {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .result-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .result-card p {
+      font-size: 0.9375rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* WHAT'S INCLUDED */
+    .included-heading {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+    .included-item {
+      margin-bottom: 32px;
+    }
+    .included-item h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .included-item p {
+      font-size: 1rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* TESTIMONIALS */
+    .testimonials-heading {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .testimonial-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 32px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      position: relative;
+    }
+    .testimonial-quote-mark { font-size: 4rem; font-family: Georgia, serif; color: var(--accent); opacity: 0.15; position: absolute; top: 12px; left: 20px; line-height: 1; }
+    .testimonial-card p {
+      font-size: 1rem;
+      font-style: italic;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .testimonial-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); }
+    .testimonial-card cite {
+      display: block;
+      font-size: 0.875rem;
+      font-style: normal;
+      font-weight: 600;
+    }
+    .testimonial-role { font-size: 0.8125rem; color: var(--text-light); font-weight: 400; }
+
+    /* GUARANTEE */
+    .guarantee { display: flex; align-items: flex-start; gap: 16px; max-width: 480px; margin: 24px auto 0; text-align: left; }
+    .guarantee-badge { flex-shrink: 0; }
+    .guarantee-text strong { font-size: 0.9375rem; display: block; margin-bottom: 4px; }
+    .guarantee-text p { font-size: 0.8125rem; color: var(--text-light); line-height: 1.5; }
+    .section-dark .guarantee-text p { color: rgba(255,255,255,0.7); }
+    .section-dark .guarantee-text strong { color: #fff; }
+
+    /* FINAL CTA */
+    .final-cta {
+      text-align: center;
+      padding: 64px 16px;
+    }
+    .final-cta h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .final-cta p {
+      font-size: 1.0625rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section-dark .final-cta p { color: rgba(255,255,255,0.8); }
+
+    /* HIGHLIGHT */
+    .highlight { background: linear-gradient(transparent 60%, #FFEC99 60%); padding: 0 4px; }
+
+    /* STICKY MOBILE CTA */
+    .sticky-cta { display: none; position: fixed; bottom: 0; left: 0; width: 100%; padding: 12px 16px; background: #fff; box-shadow: 0 -2px 12px rgba(0,0,0,0.1); z-index: 9999; }
+    .sticky-cta-btn { display: block; width: 100%; padding: 16px; font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; text-decoration: none; border-radius: 6px; background: var(--accent); color: #fff; }
+    @media (min-width: 768px) { .sticky-cta { display: none !important; } }
+
+    /* SCROLL FADE-IN */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      font-size: 0.8125rem;
+      color: #868E96;
+    }
+
+    @media (min-width: 768px) {
+      .hero { padding: 96px 24px; }
+      .hero h1 { font-size: 3rem; }
+      .section { padding: 80px 24px; }
+      .results-grid { grid-template-columns: 1fr 1fr 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .final-cta h2 { font-size: 2.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO — STORY OPENER -->
+  <section class="hero" style="background-image: url('{{HERO_IMAGE}}');">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>{{HERO_HEADLINE}}</h1>
+      <p class="sub">{{HERO_SUBHEADLINE}}</p>
+      <a href="#signup" class="cta">{{CTA_TEXT}}</a>
+    </div>
+  </section>
+
+  <!-- AS SEEN IN LOGO BAR -->
+  <section class="logo-bar">
+    <p class="logo-bar-label">As Seen In</p>
+    <div class="logo-bar-logos">
+      <img src="{{LOGO_1}}" alt="{{LOGO_1_ALT}}" loading="lazy">
+      <img src="{{LOGO_2}}" alt="{{LOGO_2_ALT}}" loading="lazy">
+      <img src="{{LOGO_3}}" alt="{{LOGO_3_ALT}}" loading="lazy">
+      <img src="{{LOGO_4}}" alt="{{LOGO_4_ALT}}" loading="lazy">
+    </div>
+  </section>
+
+  <!-- THE STORY — HOOK -->
+  <section class="section fade-in">
+    <div class="story-block">
+      <p class="story-hook">I was {{STORY_HOOK}}...</p>
+      <p>{{STORY_OPENING_P1}}</p>
+      <p>{{STORY_OPENING_P2}}</p>
+    </div>
+  </section>
+
+  <!-- THE STRUGGLE -->
+  <section class="section section-alt fade-in">
+    <div class="inner">
+      <h2 class="discovery-heading">{{STRUGGLE_HEADLINE}}</h2>
+      <div class="story-block">
+        <p>{{STRUGGLE_BODY}}</p>
+      </div>
+      <ul class="struggle-list" style="margin-top: 32px;">
+        <li>{{STRUGGLE_POINT_1}}</li>
+        <li>{{STRUGGLE_POINT_2}}</li>
+        <li>{{STRUGGLE_POINT_3}}</li>
+        <li>{{STRUGGLE_POINT_4}}</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- THE DISCOVERY -->
+  <section class="section fade-in">
+    <div class="story-block">
+      <h2 class="discovery-heading">{{DISCOVERY_HEADLINE}}</h2>
+      <p>{{DISCOVERY_BODY_P1}}</p>
+      <p>{{DISCOVERY_BODY_P2}}</p>
+      <p class="story-highlight"><span class="highlight">{{DISCOVERY_HIGHLIGHT}}</span></p>
+    </div>
+  </section>
+
+  <!-- TRANSFORMATION RESULTS -->
+  <section class="section section-alt fade-in">
+    <div class="inner">
+      <h2 class="results-heading">{{RESULTS_HEADLINE}}</h2>
+      <div class="results-grid">
+        <div class="result-card">
+          <div class="result-stat">{{RESULT_1_STAT}}</div>
+          <h3>{{RESULT_1_TITLE}}</h3>
+          <p>{{RESULT_1_DESC}}</p>
+        </div>
+        <div class="result-card">
+          <div class="result-stat">{{RESULT_2_STAT}}</div>
+          <h3>{{RESULT_2_TITLE}}</h3>
+          <p>{{RESULT_2_DESC}}</p>
+        </div>
+        <div class="result-card">
+          <div class="result-stat">{{RESULT_3_STAT}}</div>
+          <h3>{{RESULT_3_TITLE}}</h3>
+          <p>{{RESULT_3_DESC}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INCLUDED -->
+  <section class="section fade-in">
+    <div class="narrow">
+      <h2 class="included-heading">{{INCLUDED_HEADLINE}}</h2>
+      <div class="included-item">
+        <h3>{{INCLUDED_1_TITLE}}</h3>
+        <p>{{INCLUDED_1_DESC}}</p>
+      </div>
+      <div class="included-item">
+        <h3>{{INCLUDED_2_TITLE}}</h3>
+        <p>{{INCLUDED_2_DESC}}</p>
+      </div>
+      <div class="included-item">
+        <h3>{{INCLUDED_3_TITLE}}</h3>
+        <p>{{INCLUDED_3_DESC}}</p>
+      </div>
+      <div class="included-item">
+        <h3>{{INCLUDED_4_TITLE}}</h3>
+        <p>{{INCLUDED_4_DESC}}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section section-alt fade-in">
+    <div class="inner">
+      <h2 class="testimonials-heading">{{TESTIMONIALS_HEADLINE}}</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <span class="testimonial-quote-mark">&ldquo;</span>
+          <p>"{{TESTIMONIAL_1_QUOTE}}"</p>
+          <div class="testimonial-author">
+            <img class="testimonial-avatar" src="{{TESTIMONIAL_1_AVATAR}}" alt="{{TESTIMONIAL_1_NAME}}">
+            <div>
+              <cite>{{TESTIMONIAL_1_NAME}}</cite>
+              <span class="testimonial-role">{{TESTIMONIAL_1_ROLE}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <span class="testimonial-quote-mark">&ldquo;</span>
+          <p>"{{TESTIMONIAL_2_QUOTE}}"</p>
+          <div class="testimonial-author">
+            <img class="testimonial-avatar" src="{{TESTIMONIAL_2_AVATAR}}" alt="{{TESTIMONIAL_2_NAME}}">
+            <div>
+              <cite>{{TESTIMONIAL_2_NAME}}</cite>
+              <span class="testimonial-role">{{TESTIMONIAL_2_ROLE}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA — JOIN ME -->
+  <section class="final-cta section-dark fade-in" id="signup">
+    <h2>{{FINAL_HEADLINE}}</h2>
+    <p>{{FINAL_BODY}}</p>
+    <a href="#" class="cta">{{CTA_TEXT}}</a>
+    <div class="guarantee">
+      <div class="guarantee-badge">
+        <svg viewBox="0 0 24 24" width="40" height="40"><path fill="var(--accent)" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+      </div>
+      <div class="guarantee-text">
+        <strong>{{GUARANTEE_DURATION}} Money-Back Guarantee</strong>
+        <p>{{GUARANTEE_BODY}}</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>&copy; {{YEAR}} {{BRAND}}. All rights reserved.</footer>
+
+  <!-- STICKY MOBILE CTA -->
+  <div class="sticky-cta" id="stickyCta">
+    <a href="#signup" class="sticky-cta-btn">{{CTA_TEXT}}</a>
+  </div>
+
+  <script>
+    // Scroll fade-in animation
+    const faders = document.querySelectorAll('.fade-in');
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    faders.forEach(el => fadeObserver.observe(el));
+
+    // Sticky mobile CTA
+    const hero = document.querySelector('.hero');
+    const stickyCta = document.getElementById('stickyCta');
+    if (hero && stickyCta) {
+      const observer = new IntersectionObserver(([e]) => {
+        stickyCta.style.display = e.isIntersecting ? 'none' : 'block';
+      }, { threshold: 0 });
+      observer.observe(hero);
+    }
+  </script>
+
+</body>
+</html>

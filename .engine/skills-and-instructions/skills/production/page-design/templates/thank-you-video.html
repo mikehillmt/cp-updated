@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}} - Thank You</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #20C997;
+      --text: #1A1A2E;
+      --text-light: #4A4A68;
+      --bg: #FFFFFF;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      max-width: 560px;
+      width: 100%;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .check-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 24px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .check-icon svg {
+      width: 36px;
+      height: 36px;
+      fill: #fff;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .message {
+      font-size: 1.125rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .video-label {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      margin-bottom: 32px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #000;
+    }
+    .video-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .next-steps {
+      background: #F8F9FA;
+      border-radius: 10px;
+      padding: 24px;
+      text-align: left;
+      margin-bottom: 32px;
+    }
+    .next-steps h3 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+    .step {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+    }
+    .step:last-child { margin-bottom: 0; }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-text {
+      font-size: 0.9375rem;
+      color: var(--text-light);
+      line-height: 1.5;
+      padding-top: 3px;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid #E9ECEF;
+      margin: 32px 0;
+    }
+    .share-section h3 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .share-section p {
+      font-size: 0.9375rem;
+      color: var(--text-light);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .share-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      font-family: var(--font);
+      text-decoration: none;
+      border: 2px solid #E9ECEF;
+      border-radius: 6px;
+      color: var(--text);
+      background: #fff;
+      cursor: pointer;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .share-btn:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .share-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+    footer {
+      margin-top: 48px;
+      font-size: 0.8125rem;
+      color: #ADB5BD;
+    }
+    @media (min-width: 768px) {
+      h1 { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="check-icon">
+      <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+    </div>
+    <h1>{{THANK_YOU_HEADLINE}}</h1>
+    <p class="message">{{THANK_YOU_MESSAGE}}</p>
+
+    <p class="video-label">{{VIDEO_LABEL}}</p>
+    <div class="video-wrap">
+      <iframe src="{{VIDEO_EMBED_URL}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <div class="next-steps">
+      <h3>What Happens Next</h3>
+      <div class="step">
+        <span class="step-num">1</span>
+        <span class="step-text">{{STEP_1}}</span>
+      </div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <span class="step-text">{{STEP_2}}</span>
+      </div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <span class="step-text">{{STEP_3}}</span>
+      </div>
+    </div>
+
+    <!-- Optional share section — remove if not needed -->
+    <hr class="divider">
+    <div class="share-section">
+      <h3>Share With a Friend</h3>
+      <p>{{SHARE_MESSAGE}}</p>
+      <div class="share-buttons">
+        <a href="https://twitter.com/intent/tweet?text={{SHARE_TEXT_ENCODED}}&url={{SHARE_URL_ENCODED}}" target="_blank" rel="noopener" class="share-btn">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Post
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{SHARE_URL_ENCODED}}" target="_blank" rel="noopener" class="share-btn">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          Share
+        </a>
+        <button class="share-btn" onclick="navigator.clipboard.writeText('{{SHARE_URL}}');this.querySelector('span').textContent='Copied!'">
+          <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          <span>Copy Link</span>
+        </button>
+      </div>
+    </div>
+
+    <footer>&copy; {{YEAR}} {{BRAND}}</footer>
+  </div>
+</body>
+</html>

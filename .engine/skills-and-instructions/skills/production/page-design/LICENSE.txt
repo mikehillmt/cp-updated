@@ -1,0 +1,25 @@
+ClickCampaigns — Page Design Template Library
+License & Usage Grant
+
+These page templates, the design system, and the accompanying catalog/gallery
+("the Library") are provided as part of the ClickCampaigns campaign-builder.
+
+GRANT
+You (the licensee — including a client to whom this repository is delivered)
+are granted a perpetual, worldwide, royalty-free right to:
+  - use, copy, and modify the Library;
+  - generate landing pages, sales pages, and other marketing assets from it;
+  - deploy and host the resulting pages commercially; and
+  - redistribute the resulting pages as part of your own products and client work.
+
+CONDITIONS
+  - The Library is provided "AS IS", without warranty of any kind, express or
+    implied. No guarantee is made regarding conversion rates; the figures in the
+    catalog are informational benchmarks, not commitments.
+  - You may not resell or redistribute the Library itself as a standalone
+    template product that competes with ClickCampaigns. (Pages you build from it
+    are yours to sell and deploy without restriction.)
+
+The templates contain no third-party assets, fonts, or code requiring separate
+attribution. The only optional runtime dependency is the Google Fonts CDN, which
+degrades gracefully to system fonts.

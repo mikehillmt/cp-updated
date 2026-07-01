@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #E8590C;
+      --accent-light: #FFF4F0;
+      --text: #1A1A2E;
+      --text-light: #4A4A68;
+      --bg: #FFFFFF;
+      --bg-alt: #F8F9FA;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      max-width: 600px;
+      width: 100%;
+      padding: 48px 24px;
+    }
+
+    /* HEADER */
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .header .sub {
+      font-size: 1.125rem;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    /* PROGRESS BAR */
+    .progress {
+      margin-bottom: 32px;
+    }
+    .progress-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-light);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: #DEE2E6;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    /* QUIZ STEP (questions) */
+    .quiz-step {
+      display: none;
+    }
+    .quiz-step.active {
+      display: block;
+    }
+    .question {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: var(--bg-alt);
+      border: 2px solid #DEE2E6;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, transform 0.15s;
+      font-size: 1rem;
+      line-height: 1.4;
+      color: var(--text);
+    }
+    .option:hover {
+      border-color: var(--accent);
+      background: var(--accent-light);
+      transform: translateY(-2px);
+    }
+    .option-icon {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      background: #fff;
+      border: 2px solid #DEE2E6;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.125rem;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .option:hover .option-icon {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+    .option-text {
+      font-weight: 600;
+    }
+
+    /* RESULT / EMAIL CAPTURE STEP */
+    .result-step {
+      display: none;
+      text-align: center;
+    }
+    .result-step.active {
+      display: block;
+    }
+    .result-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      background: var(--accent-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .result-icon svg {
+      width: 32px;
+      height: 32px;
+      fill: var(--accent);
+    }
+    .result-headline {
+      font-size: 1.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .result-sub {
+      font-size: 1rem;
+      color: var(--text-light);
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .form-field {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1rem;
+      font-family: var(--font);
+      border: 2px solid #DEE2E6;
+      border-radius: 6px;
+      transition: border-color 0.15s;
+    }
+    .form-field:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .cta {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      font-size: 1.125rem;
+      font-weight: 700;
+      font-family: var(--font);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .privacy {
+      font-size: 0.8125rem;
+      color: #868E96;
+      margin-top: 12px;
+    }
+    .highlight { background: linear-gradient(transparent 60%, #FFEC99 60%); padding: 0 4px; }
+    .social-proof-line { font-size: 0.8125rem; color: #868E96; margin-top: 12px; }
+
+    @media (min-width: 768px) {
+      .header h1 { font-size: 2.75rem; }
+      .question { font-size: 1.5rem; }
+      .result-headline { font-size: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+      <h1>Find Out {{QUIZ_PROMISE}}</h1>
+      <p class="sub"><span class="highlight">{{KEY_BENEFIT}}</span> — {{QUIZ_SUBHEADLINE}}</p>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="progress">
+      <p class="progress-label" id="progress-label">Step 1 of 3</p>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" style="width: 33%"></div>
+      </div>
+    </div>
+
+    <!-- QUESTION 1 -->
+    <div class="quiz-step active" id="step-1" data-step="1">
+      <p class="question">{{Q1_TEXT}}</p>
+      <div class="options">
+        <div class="option" onclick="nextStep(1)">
+          <span class="option-icon">A</span>
+          <span class="option-text">{{Q1_OPTION_A}}</span>
+        </div>
+        <div class="option" onclick="nextStep(1)">
+          <span class="option-icon">B</span>
+          <span class="option-text">{{Q1_OPTION_B}}</span>
+        </div>
+        <div class="option" onclick="nextStep(1)">
+          <span class="option-icon">C</span>
+          <span class="option-text">{{Q1_OPTION_C}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUESTION 2 -->
+    <div class="quiz-step" id="step-2" data-step="2">
+      <p class="question">{{Q2_TEXT}}</p>
+      <div class="options">
+        <div class="option" onclick="nextStep(2)">
+          <span class="option-icon">A</span>
+          <span class="option-text">{{Q2_OPTION_A}}</span>
+        </div>
+        <div class="option" onclick="nextStep(2)">
+          <span class="option-icon">B</span>
+          <span class="option-text">{{Q2_OPTION_B}}</span>
+        </div>
+        <div class="option" onclick="nextStep(2)">
+          <span class="option-icon">C</span>
+          <span class="option-text">{{Q2_OPTION_C}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUESTION 3 -->
+    <div class="quiz-step" id="step-3" data-step="3">
+      <p class="question">{{Q3_TEXT}}</p>
+      <div class="options">
+        <div class="option" onclick="showResult()">
+          <span class="option-icon">A</span>
+          <span class="option-text">{{Q3_OPTION_A}}</span>
+        </div>
+        <div class="option" onclick="showResult()">
+          <span class="option-icon">B</span>
+          <span class="option-text">{{Q3_OPTION_B}}</span>
+        </div>
+        <div class="option" onclick="showResult()">
+          <span class="option-icon">C</span>
+          <span class="option-text">{{Q3_OPTION_C}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL CAPTURE (shown after last question) -->
+    <div class="result-step" id="result-step">
+      <div class="result-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+      </div>
+      <h2 class="result-headline">{{RESULT_HEADLINE}}</h2>
+      <p class="result-sub">{{RESULT_SUBHEADLINE}}</p>
+      <form class="form-group" action="#" method="POST">
+        <input type="email" class="form-field" placeholder="Enter your email" required>
+        <button type="submit" class="cta">{{CTA_TEXT}}</button>
+      </form>
+      <p class="privacy">We respect your privacy. Unsubscribe anytime.</p>
+      <p class="social-proof-line">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--accent)" style="vertical-align:-2px;margin-right:4px;"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        <span>{{SUBSCRIBER_COUNT}} people already signed up</span>
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    var totalSteps = 3;
+
+    function nextStep(current) {
+      var next = current + 1;
+      document.getElementById('step-' + current).classList.remove('active');
+      document.getElementById('step-' + next).classList.add('active');
+      document.getElementById('progress-label').textContent = 'Step ' + next + ' of ' + totalSteps;
+      document.getElementById('progress-fill').style.width = ((next / totalSteps) * 100) + '%';
+    }
+
+    function showResult() {
+      var lastStep = document.querySelector('.quiz-step.active');
+      if (lastStep) lastStep.classList.remove('active');
+      document.getElementById('progress-label').textContent = 'Almost done!';
+      document.getElementById('progress-fill').style.width = '100%';
+      document.getElementById('result-step').classList.add('active');
+    }
+  </script>
+</body>
+</html>

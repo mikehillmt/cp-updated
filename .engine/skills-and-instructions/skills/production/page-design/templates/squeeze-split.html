@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #E8590C;
+      --text: #1A1A2E;
+      --text-light: #4A4A68;
+      --bg: #FFFFFF;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      max-width: 1000px;
+      width: 100%;
+      padding: 48px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      align-items: center;
+    }
+    .mockup {
+      flex: 1;
+      max-width: 400px;
+    }
+    .mockup img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    }
+    .content {
+      flex: 1;
+      max-width: 480px;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .sub {
+      font-size: 1.125rem;
+      color: var(--text-light);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .bullets {
+      list-style: none;
+      margin-bottom: 28px;
+    }
+    .bullets li {
+      padding: 6px 0;
+      font-size: 1rem;
+      color: var(--text-light);
+      line-height: 1.5;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .bullets li::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+      background-size: 12px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .form-field {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1rem;
+      font-family: var(--font);
+      border: 2px solid #DEE2E6;
+      border-radius: 6px;
+      transition: border-color 0.15s;
+    }
+    .form-field:focus { outline: none; border-color: var(--accent); }
+    .cta {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      font-size: 1.125rem;
+      font-weight: 700;
+      font-family: var(--font);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .privacy {
+      font-size: 0.8125rem;
+      color: #868E96;
+      margin-top: 8px;
+    }
+    .highlight { background: linear-gradient(transparent 60%, #FFEC99 60%); padding: 0 4px; }
+    .social-proof-line { font-size: 0.8125rem; color: #868E96; margin-top: 12px; }
+    footer {
+      width: 100%;
+      text-align: center;
+      padding: 16px;
+      font-size: 0.8125rem;
+      color: #ADB5BD;
+    }
+    @media (min-width: 768px) {
+      .container {
+        flex-direction: row;
+        padding: 0 48px;
+      }
+      h1 { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="mockup">
+      <img src="{{PRODUCT_IMAGE}}" alt="{{PRODUCT_NAME}}" loading="lazy">
+    </div>
+    <div class="content">
+      <h1>{{HEADLINE}}</h1>
+      <p class="sub"><span class="highlight">{{KEY_BENEFIT}}</span> — {{SUBHEADLINE}}</p>
+      <ul class="bullets">
+        <li>{{BULLET_1}}</li>
+        <li>{{BULLET_2}}</li>
+        <li>{{BULLET_3}}</li>
+      </ul>
+      <form class="form-group" action="#" method="POST">
+        <input type="email" class="form-field" placeholder="Enter your email" required>
+        <button type="submit" class="cta">{{CTA_TEXT}}</button>
+      </form>
+      <p class="privacy">We respect your privacy. Unsubscribe anytime.</p>
+      <p class="social-proof-line">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--accent)" style="vertical-align:-2px;margin-right:4px;"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        <span>{{SUBSCRIBER_COUNT}} people already signed up</span>
+      </p>
+    </div>
+  </div>
+  <footer>&copy; {{YEAR}} {{BRAND}} | <a href="#">Privacy Policy</a></footer>
+</body>
+</html>

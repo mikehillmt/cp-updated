@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #E8590C;
+      --text: #1A1A2E;
+      --text-light: #4A4A68;
+      --bg: #FFFFFF;
+      --bg-alt: #F8F9FA;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    body { font-family: var(--font); color: var(--text); background: var(--bg); }
+    img { max-width: 100%; height: auto; display: block; }
+    .section { padding: 48px 16px; }
+    .section-alt { background: var(--bg-alt); }
+    .section-dark { background: var(--text); color: #fff; }
+    .inner { max-width: 1100px; margin: 0 auto; }
+    .narrow { max-width: 680px; margin: 0 auto; }
+
+    /* HERO */
+    .hero {
+      padding: 64px 16px;
+      text-align: center;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7));
+    }
+    .hero-content { position: relative; z-index: 1; color: #fff; }
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .hero .sub {
+      font-size: 1.125rem;
+      line-height: 1.5;
+      margin-bottom: 24px;
+      opacity: 0.9;
+    }
+    .hero .challenge-dates {
+      display: inline-block;
+      padding: 10px 24px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 32px;
+    }
+    .cta {
+      display: inline-block;
+      padding: 16px 40px;
+      font-size: 1.125rem;
+      font-weight: 700;
+      font-family: var(--font);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .cta-sub {
+      display: block;
+      margin-top: 12px;
+      font-size: 0.875rem;
+      opacity: 0.7;
+    }
+
+    /* LOGO BAR */
+    .logo-bar { padding: 32px 16px; text-align: center; background: #F8F9FA; border-top: 1px solid #E9ECEF; border-bottom: 1px solid #E9ECEF; }
+    .logo-bar-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #ADB5BD; margin-bottom: 20px; }
+    .logo-bar-logos { display: flex; justify-content: center; align-items: center; gap: 32px; flex-wrap: wrap; }
+    .logo-bar-logos img { height: 28px; width: auto; filter: grayscale(100%); opacity: 0.5; transition: opacity 0.2s, filter 0.2s; }
+    .logo-bar-logos img:hover { filter: grayscale(0%); opacity: 1; }
+
+    /* ACCOMPLISH */
+    .accomplish-heading {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .accomplish-sub {
+      text-align: center;
+      font-size: 1.0625rem;
+      color: var(--text-light);
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .accomplish-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .accomplish-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 32px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      text-align: center;
+    }
+    .accomplish-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .accomplish-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .accomplish-card p {
+      font-size: 0.9375rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* DAY-BY-DAY BREAKDOWN */
+    .days-heading {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 48px;
+    }
+    .day-timeline {
+      max-width: 680px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .day-timeline::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #DEE2E6;
+    }
+    .day-item {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .day-item:last-child { margin-bottom: 0; }
+    .day-num {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    .day-content {
+      flex: 1;
+      padding-top: 8px;
+    }
+    .day-content h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .day-content p {
+      font-size: 1rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* WHO IT'S FOR */
+    .who-heading {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+    .who-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .who-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 1.0625rem;
+      line-height: 1.5;
+      padding: 16px 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .who-check {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #D3F9D8;
+      color: #2B8A3E;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    /* BONUSES */
+    .bonuses-heading {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+    .bonuses-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .bonus-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 32px 24px;
+    }
+    .bonus-label {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .bonus-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .bonus-card p {
+      font-size: 1rem;
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+    .bonus-value {
+      margin-top: 12px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      opacity: 0.7;
+    }
+
+    /* TESTIMONIALS */
+    .testimonials-heading {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .testimonial-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 32px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      position: relative;
+    }
+    .testimonial-quote-mark { font-size: 4rem; font-family: Georgia, serif; color: var(--accent); opacity: 0.15; position: absolute; top: 12px; left: 20px; line-height: 1; }
+    .testimonial-card p {
+      font-size: 1rem;
+      font-style: italic;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .testimonial-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); }
+    .testimonial-card cite {
+      display: block;
+      font-size: 0.875rem;
+      font-style: normal;
+      font-weight: 600;
+    }
+    .testimonial-role { font-size: 0.8125rem; color: var(--text-light); font-weight: 400; }
+
+    /* REGISTRATION FORM */
+    .reg-heading {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .reg-sub {
+      text-align: center;
+      font-size: 1.0625rem;
+      color: var(--text-light);
+      margin-bottom: 32px;
+    }
+    .reg-form {
+      max-width: 480px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 40px 32px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .form-field {
+      margin-bottom: 16px;
+    }
+    .form-field label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .form-field input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1rem;
+      font-family: var(--font);
+      border: 2px solid #DEE2E6;
+      border-radius: 6px;
+      transition: border-color 0.15s;
+    }
+    .form-field input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .reg-form .cta {
+      width: 100%;
+      text-align: center;
+      margin-top: 8px;
+    }
+    .reg-privacy {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #868E96;
+      margin-top: 12px;
+    }
+
+    /* GUARANTEE */
+    .guarantee { display: flex; align-items: flex-start; gap: 16px; max-width: 480px; margin: 24px auto 0; text-align: left; }
+    .guarantee-badge { flex-shrink: 0; }
+    .guarantee-text strong { font-size: 0.9375rem; display: block; margin-bottom: 4px; }
+    .guarantee-text p { font-size: 0.8125rem; color: var(--text-light); line-height: 1.5; }
+    .section-dark .guarantee-text p { color: rgba(255,255,255,0.7); }
+    .section-dark .guarantee-text strong { color: #fff; }
+
+    /* FINAL CTA */
+    .final-cta {
+      text-align: center;
+      padding: 64px 16px;
+    }
+    .final-cta h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .final-cta p {
+      font-size: 1.0625rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section-dark .final-cta p { color: rgba(255,255,255,0.8); }
+
+    /* HIGHLIGHT */
+    .highlight { background: linear-gradient(transparent 60%, #FFEC99 60%); padding: 0 4px; }
+
+    /* STICKY MOBILE CTA */
+    .sticky-cta { display: none; position: fixed; bottom: 0; left: 0; width: 100%; padding: 12px 16px; background: #fff; box-shadow: 0 -2px 12px rgba(0,0,0,0.1); z-index: 9999; }
+    .sticky-cta-btn { display: block; width: 100%; padding: 16px; font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; text-decoration: none; border-radius: 6px; background: var(--accent); color: #fff; }
+    @media (min-width: 768px) { .sticky-cta { display: none !important; } }
+
+    /* SCROLL FADE-IN */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      font-size: 0.8125rem;
+      color: #868E96;
+    }
+
+    @media (min-width: 768px) {
+      .hero { padding: 96px 24px; }
+      .hero h1 { font-size: 3rem; }
+      .section { padding: 80px 24px; }
+      .accomplish-grid { grid-template-columns: 1fr 1fr 1fr; }
+      .bonuses-grid { grid-template-columns: 1fr 1fr 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .final-cta h2 { font-size: 2.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO — CHALLENGE LAUNCH -->
+  <section class="hero" style="background-image: url('{{HERO_IMAGE}}');">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Join the {{CHALLENGE_NAME}}</h1>
+      <p class="sub">{{HERO_SUBHEADLINE}}</p>
+      <div class="challenge-dates">{{CHALLENGE_DATES}}</div>
+      <br>
+      <a href="#register" class="cta">{{CTA_TEXT}}</a>
+      <span class="cta-sub">{{CTA_SUBTEXT}}</span>
+    </div>
+  </section>
+
+  <!-- AS SEEN IN LOGO BAR -->
+  <section class="logo-bar">
+    <p class="logo-bar-label">As Seen In</p>
+    <div class="logo-bar-logos">
+      <img src="{{LOGO_1}}" alt="{{LOGO_1_ALT}}" loading="lazy">
+      <img src="{{LOGO_2}}" alt="{{LOGO_2_ALT}}" loading="lazy">
+      <img src="{{LOGO_3}}" alt="{{LOGO_3_ALT}}" loading="lazy">
+      <img src="{{LOGO_4}}" alt="{{LOGO_4_ALT}}" loading="lazy">
+    </div>
+  </section>
+
+  <!-- WHAT YOU'LL ACCOMPLISH -->
+  <section class="section fade-in">
+    <div class="inner">
+      <h2 class="accomplish-heading">{{ACCOMPLISH_HEADLINE}}</h2>
+      <p class="accomplish-sub">{{ACCOMPLISH_SUBHEADLINE}}</p>
+      <div class="accomplish-grid">
+        <div class="accomplish-card">
+          <div class="accomplish-icon">{{ACCOMPLISH_1_ICON}}</div>
+          <h3>{{ACCOMPLISH_1_TITLE}}</h3>
+          <p>{{ACCOMPLISH_1_DESC}}</p>
+        </div>
+        <div class="accomplish-card">
+          <div class="accomplish-icon">{{ACCOMPLISH_2_ICON}}</div>
+          <h3>{{ACCOMPLISH_2_TITLE}}</h3>
+          <p>{{ACCOMPLISH_2_DESC}}</p>
+        </div>
+        <div class="accomplish-card">
+          <div class="accomplish-icon">{{ACCOMPLISH_3_ICON}}</div>
+          <h3>{{ACCOMPLISH_3_TITLE}}</h3>
+          <p>{{ACCOMPLISH_3_DESC}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAY-BY-DAY BREAKDOWN -->
+  <section class="section section-alt fade-in">
+    <div class="inner">
+      <h2 class="days-heading">{{DAYS_HEADLINE}}</h2>
+      <div class="day-timeline">
+        <div class="day-item">
+          <div class="day-num">Day 1</div>
+          <div class="day-content">
+            <h3>{{DAY_1_TITLE}}</h3>
+            <p>{{DAY_1_DESC}}</p>
+          </div>
+        </div>
+        <div class="day-item">
+          <div class="day-num">Day 2</div>
+          <div class="day-content">
+            <h3>{{DAY_2_TITLE}}</h3>
+            <p>{{DAY_2_DESC}}</p>
+          </div>
+        </div>
+        <div class="day-item">
+          <div class="day-num">Day 3</div>
+          <div class="day-content">
+            <h3>{{DAY_3_TITLE}}</h3>
+            <p>{{DAY_3_DESC}}</p>
+          </div>
+        </div>
+        <div class="day-item">
+          <div class="day-num">Day 4</div>
+          <div class="day-content">
+            <h3>{{DAY_4_TITLE}}</h3>
+            <p>{{DAY_4_DESC}}</p>
+          </div>
+        </div>
+        <div class="day-item">
+          <div class="day-num">Day 5</div>
+          <div class="day-content">
+            <h3>{{DAY_5_TITLE}}</h3>
+            <p>{{DAY_5_DESC}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="section fade-in">
+    <div class="inner">
+      <h2 class="who-heading">{{WHO_HEADLINE}}</h2>
+      <div class="who-grid">
+        <div class="who-item">
+          <span class="who-check">&#10003;</span>
+          <span>{{WHO_POINT_1}}</span>
+        </div>
+        <div class="who-item">
+          <span class="who-check">&#10003;</span>
+          <span>{{WHO_POINT_2}}</span>
+        </div>
+        <div class="who-item">
+          <span class="who-check">&#10003;</span>
+          <span>{{WHO_POINT_3}}</span>
+        </div>
+        <div class="who-item">
+          <span class="who-check">&#10003;</span>
+          <span>{{WHO_POINT_4}}</span>
+        </div>
+        <div class="who-item">
+          <span class="who-check">&#10003;</span>
+          <span>{{WHO_POINT_5}}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BONUSES -->
+  <section class="section section-dark fade-in">
+    <div class="inner">
+      <h2 class="bonuses-heading">{{BONUSES_HEADLINE}}</h2>
+      <div class="bonuses-grid">
+        <div class="bonus-card">
+          <span class="bonus-label">Bonus #1</span>
+          <h3>{{BONUS_1_TITLE}}</h3>
+          <p>{{BONUS_1_DESC}}</p>
+          <p class="bonus-value">Value: {{BONUS_1_VALUE}}</p>
+        </div>
+        <div class="bonus-card">
+          <span class="bonus-label">Bonus #2</span>
+          <h3>{{BONUS_2_TITLE}}</h3>
+          <p>{{BONUS_2_DESC}}</p>
+          <p class="bonus-value">Value: {{BONUS_2_VALUE}}</p>
+        </div>
+        <div class="bonus-card">
+          <span class="bonus-label">Bonus #3</span>
+          <h3>{{BONUS_3_TITLE}}</h3>
+          <p>{{BONUS_3_DESC}}</p>
+          <p class="bonus-value">Value: {{BONUS_3_VALUE}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section fade-in">
+    <div class="inner">
+      <h2 class="testimonials-heading">{{TESTIMONIALS_HEADLINE}}</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <span class="testimonial-quote-mark">&ldquo;</span>
+          <p>"{{TESTIMONIAL_1_QUOTE}}"</p>
+          <div class="testimonial-author">
+            <img class="testimonial-avatar" src="{{TESTIMONIAL_1_AVATAR}}" alt="{{TESTIMONIAL_1_NAME}}">
+            <div>
+              <cite>{{TESTIMONIAL_1_NAME}}</cite>
+              <span class="testimonial-role">{{TESTIMONIAL_1_ROLE}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <span class="testimonial-quote-mark">&ldquo;</span>
+          <p>"{{TESTIMONIAL_2_QUOTE}}"</p>
+          <div class="testimonial-author">
+            <img class="testimonial-avatar" src="{{TESTIMONIAL_2_AVATAR}}" alt="{{TESTIMONIAL_2_NAME}}">
+            <div>
+              <cite>{{TESTIMONIAL_2_NAME}}</cite>
+              <span class="testimonial-role">{{TESTIMONIAL_2_ROLE}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGISTRATION FORM -->
+  <section class="section section-alt fade-in" id="register">
+    <div class="inner">
+      <h2 class="reg-heading">{{REG_HEADLINE}}</h2>
+      <p class="reg-sub"><span class="highlight">{{REG_SUBHEADLINE}}</span></p>
+      <form class="reg-form" action="{{FORM_ACTION}}" method="POST">
+        <div class="form-field">
+          <label for="name">First Name</label>
+          <input type="text" id="name" name="name" placeholder="{{NAME_PLACEHOLDER}}" required>
+        </div>
+        <div class="form-field">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="{{EMAIL_PLACEHOLDER}}" required>
+        </div>
+        <button type="submit" class="cta">{{CTA_TEXT}}</button>
+        <p class="reg-privacy">{{PRIVACY_TEXT}}</p>
+      </form>
+      <div class="guarantee">
+        <div class="guarantee-badge">
+          <svg viewBox="0 0 24 24" width="40" height="40"><path fill="var(--accent)" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+        </div>
+        <div class="guarantee-text">
+          <strong>{{GUARANTEE_DURATION}} Money-Back Guarantee</strong>
+          <p>{{GUARANTEE_BODY}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta section-dark fade-in">
+    <h2>{{FINAL_HEADLINE}}</h2>
+    <p>{{FINAL_BODY}}</p>
+    <a href="#register" class="cta">{{CTA_TEXT}}</a>
+  </section>
+
+  <footer>&copy; {{YEAR}} {{BRAND}}. All rights reserved.</footer>
+
+  <!-- STICKY MOBILE CTA -->
+  <div class="sticky-cta" id="stickyCta">
+    <a href="#register" class="sticky-cta-btn">{{CTA_TEXT}}</a>
+  </div>
+
+  <script>
+    // Scroll fade-in animation
+    const faders = document.querySelectorAll('.fade-in');
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    faders.forEach(el => fadeObserver.observe(el));
+
+    // Sticky mobile CTA
+    const hero = document.querySelector('.hero');
+    const stickyCta = document.getElementById('stickyCta');
+    if (hero && stickyCta) {
+      const observer = new IntersectionObserver(([e]) => {
+        stickyCta.style.display = e.isIntersecting ? 'none' : 'block';
+      }, { threshold: 0 });
+      observer.observe(hero);
+    }
+  </script>
+
+</body>
+</html>

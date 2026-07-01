@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Sales Page Template</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS v4 -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => lucide.createIcons());</script>
+
+    <style type="text/tailwindcss">
+        /* ===== TAILWIND v4 THEME =====
+           Edit these to rebrand the entire page.
+        */
+        @theme {
+            --font-heading: 'Rubik', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+
+            --color-primary: #2660ff;
+            --color-primary-light: #AAC3FF;
+            --color-primary-dark: #1a4fd4;
+            --color-surface-dark: #0E0E0F;
+            --color-surface-darker: #141416;
+            --color-surface-light: #F2F2F2;
+            --color-surface-white: #FFFFFF;
+            --color-muted: #969696;
+        }
+    </style>
+
+    <style>
+        /* ===== BASE STYLES ===== */
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(38, 96, 255, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(38, 96, 255, 0.55); }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.7s ease-out both;
+        }
+
+        .animate-delay-1 { animation-delay: 0.1s; }
+        .animate-delay-2 { animation-delay: 0.2s; }
+        .animate-delay-3 { animation-delay: 0.3s; }
+        .animate-delay-4 { animation-delay: 0.4s; }
+        .animate-delay-5 { animation-delay: 0.5s; }
+
+        .pulse-glow {
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== BUTTON STYLES ===== */
+        .btn-primary {
+            display: inline-block;
+            background: var(--color-primary);
+            color: #fff;
+            padding: 16px 40px;
+            border-radius: 8px;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 700;
+            font-size: 1.125rem;
+            line-height: 1.4;
+            text-decoration: none;
+            border: 2px solid var(--color-primary);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .btn-primary:hover {
+            background: var(--color-primary-dark);
+            border-color: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(38, 96, 255, 0.4);
+        }
+
+        .btn-lg {
+            padding: 18px 36px;
+            font-size: 1.125rem;
+        }
+
+        @media (min-width: 640px) {
+            .btn-lg {
+                padding: 20px 52px;
+                font-size: 1.25rem;
+            }
+        }
+
+        .btn-white {
+            display: inline-block;
+            background: #fff;
+            color: var(--color-primary);
+            padding: 16px 40px;
+            border-radius: 8px;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 700;
+            font-size: 1.125rem;
+            line-height: 1.4;
+            text-decoration: none;
+            border: 2px solid #fff;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .btn-white:hover {
+            background: transparent;
+            color: #fff;
+            border-color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* ===== FEATURE CARDS ===== */
+        .feature-card {
+            border: 1px solid var(--color-primary-light);
+            border-radius: 16px;
+            background: #fff;
+            padding: 28px;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(38, 96, 255, 0.12);
+            border-color: var(--color-primary);
+        }
+
+        /* ===== FAQ ===== */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .faq-answer.open {
+            max-height: 400px;
+        }
+
+        /* ===== VIDEO PLACEHOLDER ===== */
+        .video-placeholder {
+            position: relative;
+            padding-bottom: 56.25%;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--color-surface-dark);
+        }
+        .video-placeholder > * {
+            position: absolute;
+            inset: 0;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 font-body">
+
+
+<!-- ========== HELLO BAR ========== -->
+<div class="bg-primary text-center py-3 px-4">
+    <a href="#pricing" class="text-white font-semibold text-sm md:text-base no-underline hover:underline inline-flex items-center gap-1.5">
+        <span>&#9889;</span>
+        <span>Sale &rarr; 60% Off &rarr; Get Full Access for $97! (was $247)</span>
+    </a>
+</div>
+
+
+<!-- ========== HEADER ========== -->
+<header class="sticky top-0 z-50 bg-black">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-14">
+        <a href="#" class="text-white font-bold text-xl no-underline font-heading">YourBrand</a>
+
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="#features" class="text-white/70 hover:text-white text-sm no-underline transition-colors">Features</a>
+            <a href="#testimonials" class="text-white/70 hover:text-white text-sm no-underline transition-colors">Reviews</a>
+            <a href="#faq" class="text-white/70 hover:text-white text-sm no-underline transition-colors">FAQ</a>
+            <a href="#pricing" class="btn-primary !py-2.5 !px-5 !text-sm">Get Access &ndash; $97</a>
+        </nav>
+
+        <button id="mobile-menu-btn" class="md:hidden text-white p-1" aria-label="Toggle menu">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+    </div>
+
+    <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-white/10 px-6 pb-5 space-y-1">
+        <a href="#features" class="block text-white/70 hover:text-white py-2.5 text-sm no-underline">Features</a>
+        <a href="#testimonials" class="block text-white/70 hover:text-white py-2.5 text-sm no-underline">Reviews</a>
+        <a href="#faq" class="block text-white/70 hover:text-white py-2.5 text-sm no-underline">FAQ</a>
+        <a href="#pricing" class="btn-primary block text-center mt-3 !py-2.5 !text-sm">Get Access &ndash; $97</a>
+    </div>
+</header>
+
+
+<!-- ========== HERO ========== -->
+<section class="relative overflow-hidden bg-surface-dark">
+    <!-- Background image -->
+    <img src="https://images.pexels.com/photos/7034471/pexels-photo-7034471.jpeg?auto=compress&cs=tinysrgb&w=1920"
+         alt="" class="absolute inset-0 w-full h-full object-cover opacity-25" loading="eager">
+    <!-- Gradient overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-surface-dark/60 via-surface-dark/80 to-surface-dark"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 md:px-10 py-24 md:py-36 text-center">
+        <!-- Eyebrow -->
+        <p class="text-primary font-semibold text-sm md:text-base tracking-[0.2em] uppercase mb-7 animate-in">
+            The Complete System
+        </p>
+
+        <!-- Headline -->
+        <h1 class="font-heading font-black text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.08] tracking-tight mb-7 animate-in animate-delay-1">
+            MASTER YOUR CRAFT<br class="hidden sm:block"> WITH AI
+        </h1>
+
+        <!-- Subheadline -->
+        <p class="text-white/75 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-10 animate-in animate-delay-2">
+            Create professional-quality results in days, not months &mdash; no prior experience required.
+        </p>
+
+        <!-- Sale badge -->
+        <div class="inline-flex items-center gap-2 rounded-full px-6 py-2.5 bg-primary/10 border border-primary/30 mb-10 animate-in animate-delay-3">
+            <span class="text-white font-semibold text-sm md:text-base">
+                Sale &rarr; 60% Off &middot;
+                <span class="line-through opacity-50">$247</span>
+                Now only <span class="text-primary font-bold">$97</span>
+            </span>
+        </div>
+
+        <!-- CTA -->
+        <div class="animate-in animate-delay-4">
+        <a href="#pricing" class="btn-primary btn-lg pulse-glow">
+            Get Instant Access
+        </a>
+        </div>
+
+        <!-- Trust row -->
+        <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 mt-9 animate-in animate-delay-5">
+            <span class="inline-flex items-center gap-2 text-white/60 text-sm">
+                <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i> Lifetime Access
+            </span>
+            <span class="inline-flex items-center gap-2 text-white/60 text-sm">
+                <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i> 7-Day Refund
+            </span>
+            <span class="inline-flex items-center gap-2 text-white/60 text-sm">
+                <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i> Updated March 2026
+            </span>
+        </div>
+
+        <!-- Testimonial card -->
+        <div class="mt-14 animate-in animate-delay-5">
+            <div class="inline-block rounded-2xl px-8 py-6 max-w-lg text-left bg-white/5 backdrop-blur-md border border-white/10">
+                <div class="flex gap-0.5 mb-3">
+                    <i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i>
+                </div>
+                <p class="text-white/85 text-sm italic leading-relaxed mb-3">
+                    &ldquo;Incredibly detailed and informative &mdash; totally worth the price!&rdquo;
+                </p>
+                <p class="text-white/50 text-xs font-semibold tracking-wide uppercase">
+                    Jane Doe &middot; Industry Expert &amp; Consultant
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== VALUE PROPOSITION ========== -->
+<section class="bg-surface-light py-20 md:py-28">
+    <div class="max-w-3xl mx-auto px-6 md:px-10">
+        <!-- Blue accent block -->
+        <div class="bg-primary rounded-2xl px-8 py-10 md:px-12 md:py-14 mb-10 reveal">
+            <h2 class="font-heading font-bold text-white text-3xl md:text-4xl leading-snug mb-5">
+                Your ideas, finally visible.
+            </h2>
+            <p class="text-white/90 text-lg leading-relaxed">
+                The gap between a great idea and a finished product has officially vanished. If you've ever felt lost in the noise of new tools or wondered how professionals actually get results, the secret isn't in the software &mdash; it's in a creative process that turns scattered efforts into one cohesive outcome.
+            </p>
+        </div>
+
+        <p class="text-gray-600 text-lg leading-relaxed mb-10 reveal">
+            We provide the map to this new territory. Instead of just &ldquo;pressing buttons,&rdquo; you'll master a reliable workflow to orchestrate multiple tools and guide your vision from an initial spark to the final result. It's time to give your imagination the life it deserves.
+        </p>
+
+        <div class="text-center reveal">
+            <a href="#pricing" class="btn-primary">Bring Ideas to Life</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== THREE-STAGE PROCESS ========== -->
+<section id="features" class="bg-white py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-10">
+        <!-- Header -->
+        <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+            <h2 class="font-heading font-bold text-3xl md:text-4xl leading-snug mb-4">
+                What you'll master
+            </h2>
+            <p class="text-gray-500 text-lg leading-relaxed">
+                We've broken the process into three simple stages, so you always know what to do next.
+            </p>
+        </div>
+
+        <!-- Three cards -->
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Stage 1 -->
+            <div class="bg-surface-dark rounded-2xl overflow-hidden reveal">
+                <img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600"
+                     alt="Stage 1" class="w-full h-52 object-cover opacity-75" loading="lazy">
+                <div class="p-7">
+                    <span class="text-primary text-xs font-bold tracking-[0.15em] uppercase">Stage 1</span>
+                    <h3 class="font-heading text-white text-xl font-bold mt-2 mb-3">Foundation &amp; Planning</h3>
+                    <p class="text-white/65 text-sm leading-relaxed">
+                        Transform any idea into a powerful concept, plan, and roadmap before touching a single tool.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Stage 2 -->
+            <div class="bg-surface-dark rounded-2xl overflow-hidden reveal">
+                <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=600"
+                     alt="Stage 2" class="w-full h-52 object-cover opacity-75" loading="lazy">
+                <div class="p-7">
+                    <span class="text-primary text-xs font-bold tracking-[0.15em] uppercase">Stage 2</span>
+                    <h3 class="font-heading text-white text-xl font-bold mt-2 mb-3">Production &amp; Creation</h3>
+                    <p class="text-white/65 text-sm leading-relaxed">
+                        Follow step-by-step workflows to generate stunning results using our proven process.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Stage 3 -->
+            <div class="bg-surface-dark rounded-2xl overflow-hidden reveal">
+                <img src="https://images.pexels.com/photos/3184639/pexels-photo-3184639.jpeg?auto=compress&cs=tinysrgb&w=600"
+                     alt="Stage 3" class="w-full h-52 object-cover opacity-75" loading="lazy">
+                <div class="p-7">
+                    <span class="text-primary text-xs font-bold tracking-[0.15em] uppercase">Stage 3</span>
+                    <h3 class="font-heading text-white text-xl font-bold mt-2 mb-3">Polish &amp; Launch</h3>
+                    <p class="text-white/65 text-sm leading-relaxed">
+                        Assemble your elements, refine the final product, and prepare to share your masterpiece with the world.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== SKILLS GRID ========== -->
+<section class="bg-surface-light py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-10">
+        <!-- Header -->
+        <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+            <h2 class="font-heading font-bold text-3xl md:text-4xl leading-snug">
+                Specific skills you'll walk away with:
+            </h2>
+        </div>
+
+        <!-- 3x3 grid -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Skill 1 -->
+            <div class="feature-card reveal">
+                <div class="w-full h-40 rounded-xl mb-5 flex items-center justify-center bg-gray-100">
+                    <i data-lucide="pen-tool" class="w-10 h-10 text-primary"></i>
+                </div>
+                <h3 class="font-heading font-bold text-lg mb-2">Skill One</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Learn to craft compelling foundations that set the stage for everything that follows.</p>
+            </div>
+
+            <!-- Skill 2 -->
+            <div class="feature-card reveal">
+                <div class="w-full h-40 rounded-xl mb-5 flex items-center justify-center bg-gray-100">
+                    <i data-lucide="layout" class="w-10 h-10 text-primary"></i>
+                </div>
+                <h3 class="font-heading font-bold text-lg mb-2">Skill Two</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Master the art of strategic planning to organize your vision with precision.</p>
+            </div>
+
+            <!-- Skill 3 -->
+            <div class="feature-card reveal">
+                <div class="w-full h-40 rounded-xl mb-5 flex items-center justify-center bg-gray-100">
+                    <i data-lucide="palette" class="w-10 h-10 text-primary"></i>
+                </div>
+                <h3 class="font-heading font-bold text-lg mb-2">Skill Three</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Design consistent, professional-quality assets that bring your concepts to life.</p>
+            </div>
+
+            <!-- Skill 4 -->
+            <div class="feature-card reveal">
+                <div class="w-full h-40 rounded-xl mb-5 flex items-center justify-center bg-gray-100">
+                    <i data-lucide="image" class="w-10 h-10 text-primary"></i>
+                </div>
+                <h3 class="font-heading font-bold text-lg mb-2">Skill Four</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Generate stunning visuals using cutting-edge tools and techniques.</p>
+            </div>
+
+            <!-- Skill 5 -->
+            <div class="feature-card reveal">
+                <div class="w-full h-40 rounded-xl mb-5 flex items-center justify-center bg-gray-100">
+                    <i data-lucide="maximize" class="w-10 h-10 text-primary"></i>
+                </div>
+                <h3 class="font-heading font-bold text-lg mb-2">Skill Five</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Upscale and enhance your work to professional-grade quality.</p>
+            </div>
+
+            <!-- Skill 6 -->
+            <div class="feature-card reveal">
+                <div class="w-full h-40 rounded-xl mb-5 flex items-center justify-center bg-gray-100">
+                    <i data-lucide="video" class="w-10 h-10 text-primary"></i>
+                </div>
+                <h3 class="font-heading font-bold text-lg mb-2">Skill Six</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Create dynamic content that captivates and engages your audience.</p>
+            </div>
+
+            <!-- Skill 7 -->
+            <div class="feature-card reveal">
+                <div class="w-full h-40 rounded-xl mb-5 flex items-center justify-center bg-gray-100">
+                    <i data-lucide="mic" class="w-10 h-10 text-primary"></i>
+                </div>
+                <h3 class="font-heading font-bold text-lg mb-2">Skill Seven</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Generate professional audio, voiceovers, and sound design with AI tools.</p>
+            </div>
+
+            <!-- Skill 8 -->
+            <div class="feature-card reveal">
+                <div class="w-full h-40 rounded-xl mb-5 flex items-center justify-center bg-gray-100">
+                    <i data-lucide="message-circle" class="w-10 h-10 text-primary"></i>
+                </div>
+                <h3 class="font-heading font-bold text-lg mb-2">Skill Eight</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Sync and polish your elements for seamless, professional presentation.</p>
+            </div>
+
+            <!-- Skill 9 -->
+            <div class="feature-card reveal">
+                <div class="w-full h-40 rounded-xl mb-5 flex items-center justify-center bg-gray-100">
+                    <i data-lucide="scissors" class="w-10 h-10 text-primary"></i>
+                </div>
+                <h3 class="font-heading font-bold text-lg mb-2">Skill Nine</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Edit and assemble everything into a polished, cohesive final product.</p>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center mt-14 reveal">
+            <a href="#pricing" class="btn-primary btn-lg pulse-glow">Master the Full Process</a>
+            <p class="mt-5 text-primary font-semibold text-sm">
+                &#9200; Lock In $97 Price Now (60% OFF)
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== CASE STUDIES / VIDEOS ========== -->
+<section id="testimonials" class="bg-white py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-10">
+        <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+            <h2 class="font-heading font-bold text-3xl md:text-4xl leading-snug mb-5">
+                Watch, Analyze, and Recreate
+            </h2>
+            <p class="text-gray-500 text-lg leading-relaxed">
+                You don't just watch tutorials &mdash; you build alongside us. Each project comes with a complete step-by-step breakdown you can follow, or notes you can adapt to your own work.
+            </p>
+        </div>
+
+        <!-- 3x2 video grid -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
+            <div class="video-placeholder reveal">
+                <div class="flex items-center justify-center">
+                    <div class="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg shadow-primary/30">
+                        <i data-lucide="play" class="w-6 h-6 text-white ml-0.5"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="video-placeholder reveal">
+                <div class="flex items-center justify-center">
+                    <div class="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg shadow-primary/30">
+                        <i data-lucide="play" class="w-6 h-6 text-white ml-0.5"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="video-placeholder reveal">
+                <div class="flex items-center justify-center">
+                    <div class="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg shadow-primary/30">
+                        <i data-lucide="play" class="w-6 h-6 text-white ml-0.5"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="video-placeholder reveal">
+                <div class="flex items-center justify-center">
+                    <div class="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg shadow-primary/30">
+                        <i data-lucide="play" class="w-6 h-6 text-white ml-0.5"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="video-placeholder reveal">
+                <div class="flex items-center justify-center">
+                    <div class="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg shadow-primary/30">
+                        <i data-lucide="play" class="w-6 h-6 text-white ml-0.5"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="video-placeholder reveal">
+                <div class="flex items-center justify-center">
+                    <div class="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg shadow-primary/30">
+                        <i data-lucide="play" class="w-6 h-6 text-white ml-0.5"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center reveal">
+            <a href="#pricing" class="btn-primary">Start Creating</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== FREE LESSON OPT-IN ========== -->
+<section class="bg-surface-light py-20 md:py-28">
+    <div class="max-w-2xl mx-auto px-6 md:px-10">
+        <div class="bg-white rounded-2xl border-2 border-primary-light p-8 md:p-12 text-center reveal">
+            <h2 class="font-heading font-bold text-2xl md:text-3xl leading-snug mb-4">
+                Not Sure Yet? Try a Free Lesson First
+            </h2>
+            <p class="text-gray-500 text-base leading-relaxed mb-8 max-w-md mx-auto">
+                See the quality for yourself before you commit. Enter your email and we'll send you instant access to a full lesson &mdash; completely free.
+            </p>
+
+            <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-5">
+                <input type="email" placeholder="Enter your email address"
+                       class="flex-1 px-5 py-3.5 rounded-lg text-base border-2 border-primary-light outline-none transition-colors focus:border-primary font-body">
+                <button type="submit" class="btn-primary whitespace-nowrap !py-3.5">
+                    Get the Free Lesson
+                </button>
+            </form>
+
+            <p class="text-muted text-xs">
+                No spam. Unsubscribe anytime. We respect your privacy.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== PRODUCT SHOWCASE + PRICING ========== -->
+<section id="pricing" class="bg-surface-darker py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-10">
+        <!-- Section intro -->
+        <div class="text-center mb-16 reveal">
+            <p class="text-primary text-sm font-bold tracking-[0.2em] uppercase mb-4">&#10024; Introducing</p>
+            <h2 class="font-heading font-black text-white text-3xl md:text-5xl leading-tight mb-3">
+                The Complete Course
+            </h2>
+            <p class="text-white/50 text-lg md:text-xl mt-4">
+                100% Satisfaction Guaranteed &middot; Test It Risk-Free
+            </p>
+        </div>
+
+        <!-- Two-column: image + details -->
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <!-- Product image -->
+            <div class="reveal">
+                <div class="rounded-2xl overflow-hidden border border-white/10">
+                    <img src="https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg?auto=compress&cs=tinysrgb&w=600"
+                         alt="Course preview" class="w-full opacity-90" loading="lazy">
+                </div>
+            </div>
+
+            <!-- Details -->
+            <div class="reveal">
+                <p class="text-white/75 text-lg leading-relaxed mb-8">
+                    Go from scattered experiments to a complete, polished result &mdash; directed by you and ready to publish. Not in months of endless tutorials. <strong class="text-white">In days.</strong>
+                </p>
+
+                <ul class="space-y-5 mb-10">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check" class="w-5 h-5 mt-0.5 shrink-0 text-primary"></i>
+                        <span class="text-white/75">40+ lessons covering the complete A-to-Z process</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check" class="w-5 h-5 mt-0.5 shrink-0 text-primary"></i>
+                        <span class="text-white/75">Step-by-step project breakdowns you can follow along</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check" class="w-5 h-5 mt-0.5 shrink-0 text-primary"></i>
+                        <span class="text-white/75">Templates, prompts, and resources included</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check" class="w-5 h-5 mt-0.5 shrink-0 text-primary"></i>
+                        <span class="text-white/75">Lifetime access + all future updates</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check" class="w-5 h-5 mt-0.5 shrink-0 text-primary"></i>
+                        <span class="text-white/75">7-day money-back guarantee &mdash; zero risk</span>
+                    </li>
+                </ul>
+
+                <!-- Price -->
+                <div class="mb-8">
+                    <span class="text-white/35 text-lg line-through mr-2">$247</span>
+                    <span class="font-heading font-black text-white text-4xl">$97</span>
+                    <span class="ml-3 text-xs font-bold px-3 py-1.5 rounded-full bg-primary/15 text-primary">60% OFF</span>
+                </div>
+
+                <a href="#" class="btn-primary btn-lg pulse-glow block text-center">
+                    Get Instant Access &ndash; $97
+                </a>
+
+                <div class="flex flex-wrap gap-5 mt-5 justify-center text-white/40 text-xs">
+                    <span class="inline-flex items-center gap-1.5">
+                        <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Secure checkout
+                    </span>
+                    <span class="inline-flex items-center gap-1.5">
+                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> 7-day refund
+                    </span>
+                    <span class="inline-flex items-center gap-1.5">
+                        <i data-lucide="infinity" class="w-3.5 h-3.5"></i> Lifetime access
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== WHO IS THIS FOR ========== -->
+<section class="bg-primary py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-10">
+        <div class="text-center max-w-3xl mx-auto mb-14 reveal">
+            <h2 class="font-heading font-bold text-white text-3xl md:text-4xl leading-snug mb-5">
+                Who Is This For?
+            </h2>
+            <p class="text-white/85 text-lg leading-relaxed">
+                Perfect if you want professional results fast &mdash; no prior experience needed.
+            </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto grid sm:grid-cols-2 gap-5">
+            <!-- Persona 1 -->
+            <div class="flex items-start gap-5 rounded-2xl p-7 bg-white/10 backdrop-blur-md reveal">
+                <i data-lucide="film" class="w-7 h-7 text-white shrink-0 mt-0.5"></i>
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-1.5">Professionals &amp; Experts</h3>
+                    <p class="text-white/75 text-sm leading-relaxed">Supercharge your existing workflow with AI-powered tools and techniques.</p>
+                </div>
+            </div>
+
+            <!-- Persona 2 -->
+            <div class="flex items-start gap-5 rounded-2xl p-7 bg-white/10 backdrop-blur-md reveal">
+                <i data-lucide="palette" class="w-7 h-7 text-white shrink-0 mt-0.5"></i>
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-1.5">Designers &amp; Creators</h3>
+                    <p class="text-white/75 text-sm leading-relaxed">Turn your visual skills into stunning, polished final products.</p>
+                </div>
+            </div>
+
+            <!-- Persona 3 -->
+            <div class="flex items-start gap-5 rounded-2xl p-7 bg-white/10 backdrop-blur-md reveal">
+                <i data-lucide="megaphone" class="w-7 h-7 text-white shrink-0 mt-0.5"></i>
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-1.5">Marketers &amp; Content Creators</h3>
+                    <p class="text-white/75 text-sm leading-relaxed">Create cinematic-quality content in minutes instead of weeks.</p>
+                </div>
+            </div>
+
+            <!-- Persona 4 -->
+            <div class="flex items-start gap-5 rounded-2xl p-7 bg-white/10 backdrop-blur-md reveal">
+                <i data-lucide="sparkles" class="w-7 h-7 text-white shrink-0 mt-0.5"></i>
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-1.5">Complete Beginners</h3>
+                    <p class="text-white/75 text-sm leading-relaxed">Got ideas? We start from zero and bring you up to production-ready, step by step.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-14 reveal">
+            <p class="text-white/70 text-sm mb-7 max-w-lg mx-auto leading-relaxed">
+                You don't need to know any tools in advance. We start from zero and bring you up to a production-ready level, step by step.
+            </p>
+            <a href="#pricing" class="btn-white">Join Now &ndash; $97</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== FAQ ========== -->
+<section id="faq" class="bg-white py-20 md:py-28">
+    <div class="max-w-3xl mx-auto px-6 md:px-10">
+        <h2 class="font-heading font-bold text-3xl md:text-4xl text-center leading-snug mb-14 reveal">
+            Frequently Asked Questions
+        </h2>
+
+        <!-- FAQ 1 -->
+        <div class="border-b border-gray-200 py-6 reveal">
+            <button class="w-full flex items-center justify-between text-left group" onclick="toggleFaq(this)">
+                <h3 class="font-heading font-semibold text-lg pr-6 group-hover:text-primary transition-colors">
+                    Do I need any prior experience to take this course?
+                </h3>
+                <i data-lucide="chevron-down" class="w-5 h-5 shrink-0 text-primary transition-transform duration-300"></i>
+            </button>
+            <div class="faq-answer">
+                <p class="text-gray-500 pt-5 pb-1 leading-relaxed">
+                    Absolutely not! This course is specifically designed for beginners with zero experience. We start from the very basics and guide you step-by-step through each tool and technique. You'll learn exactly what you need to know without getting bogged down in technical jargon or unnecessary complexity.
+                </p>
+            </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="border-b border-gray-200 py-6 reveal">
+            <button class="w-full flex items-center justify-between text-left group" onclick="toggleFaq(this)">
+                <h3 class="font-heading font-semibold text-lg pr-6 group-hover:text-primary transition-colors">
+                    How quickly will I see results?
+                </h3>
+                <i data-lucide="chevron-down" class="w-5 h-5 shrink-0 text-primary transition-transform duration-300"></i>
+            </button>
+            <div class="faq-answer">
+                <p class="text-gray-500 pt-5 pb-1 leading-relaxed">
+                    Most students complete their first project within hours of starting the course. A complete deliverable can typically be finished within a weekend or a few evenings of focused work. The system is designed to get you creating immediately rather than spending weeks on theory.
+                </p>
+            </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="border-b border-gray-200 py-6 reveal">
+            <button class="w-full flex items-center justify-between text-left group" onclick="toggleFaq(this)">
+                <h3 class="font-heading font-semibold text-lg pr-6 group-hover:text-primary transition-colors">
+                    How long will it take me to complete the entire course?
+                </h3>
+                <i data-lucide="chevron-down" class="w-5 h-5 shrink-0 text-primary transition-transform duration-300"></i>
+            </button>
+            <div class="faq-answer">
+                <p class="text-gray-500 pt-5 pb-1 leading-relaxed">
+                    The complete course can be completed in approximately 4&ndash;6 hours of focused learning. However, we've designed it to be taken at your own pace. Many students complete the core modules over a weekend and then refer back to specific sections as needed for their projects.
+                </p>
+            </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="border-b border-gray-200 py-6 reveal">
+            <button class="w-full flex items-center justify-between text-left group" onclick="toggleFaq(this)">
+                <h3 class="font-heading font-semibold text-lg pr-6 group-hover:text-primary transition-colors">
+                    What if I don't have ideas or don't know where to start?
+                </h3>
+                <i data-lucide="chevron-down" class="w-5 h-5 shrink-0 text-primary transition-transform duration-300"></i>
+            </button>
+            <div class="faq-answer">
+                <p class="text-gray-500 pt-5 pb-1 leading-relaxed">
+                    The course includes our idea generation framework that will help you develop compelling concepts even if you're starting from scratch. Many students discover that creativity flows much more easily once they understand the possibilities. We'll teach you exactly how to transform vague notions into concrete, actionable plans.
+                </p>
+            </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="border-b border-gray-200 py-6 reveal">
+            <button class="w-full flex items-center justify-between text-left group" onclick="toggleFaq(this)">
+                <h3 class="font-heading font-semibold text-lg pr-6 group-hover:text-primary transition-colors">
+                    What's included with my purchase?
+                </h3>
+                <i data-lucide="chevron-down" class="w-5 h-5 shrink-0 text-primary transition-transform duration-300"></i>
+            </button>
+            <div class="faq-answer">
+                <p class="text-gray-500 pt-5 pb-1 leading-relaxed">
+                    You get lifetime access to 40+ lessons, step-by-step project breakdowns, templates and resources, all future course updates, and our 7-day money-back guarantee. Everything you need to go from zero to professional-quality results.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== FINAL CTA ========== -->
+<section class="bg-surface-dark py-20 md:py-28">
+    <div class="max-w-3xl mx-auto px-6 md:px-10 text-center reveal">
+        <h2 class="font-heading font-bold text-white text-3xl md:text-4xl leading-snug mb-5">
+            Ready to Start Creating?
+        </h2>
+        <p class="text-white/60 text-lg leading-relaxed mb-10 max-w-xl mx-auto">
+            Join thousands of students who went from zero to professional results in days, not months.
+        </p>
+
+        <a href="#pricing" class="btn-primary btn-lg pulse-glow">Get Instant Access &ndash; $97</a>
+
+        <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 mt-9">
+            <span class="inline-flex items-center gap-2 text-white/50 text-sm">
+                <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i> Lifetime Access
+            </span>
+            <span class="inline-flex items-center gap-2 text-white/50 text-sm">
+                <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i> 7-Day Money-Back Guarantee
+            </span>
+            <span class="inline-flex items-center gap-2 text-white/50 text-sm">
+                <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i> 60% Off &mdash; Limited Time
+            </span>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-black py-10">
+    <div class="max-w-7xl mx-auto px-6 md:px-10">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-5">
+            <a href="#" class="font-heading text-white font-bold text-lg no-underline">YourBrand</a>
+            <div class="flex gap-8">
+                <a href="#" class="text-white/40 hover:text-white/70 text-sm no-underline transition-colors">Privacy Policy</a>
+                <a href="#" class="text-white/40 hover:text-white/70 text-sm no-underline transition-colors">Terms of Service</a>
+                <a href="#" class="text-white/40 hover:text-white/70 text-sm no-underline transition-colors">Contact</a>
+            </div>
+            <p class="text-white/25 text-xs">&copy; 2026 YourBrand. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+    // Mobile menu
+    document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+        document.getElementById('mobile-menu')?.classList.toggle('hidden');
+    });
+
+    // FAQ accordion
+    function toggleFaq(btn) {
+        const answer = btn.nextElementSibling;
+        const icon = btn.querySelector('[data-lucide="chevron-down"]');
+        const isOpen = answer.classList.contains('open');
+
+        // Close all
+        document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+        document.querySelectorAll('.faq-answer').forEach(a => {
+            const prevIcon = a.previousElementSibling?.querySelector('[data-lucide="chevron-down"]');
+            if (prevIcon) prevIcon.style.transform = '';
+        });
+
+        // Open clicked (if it was closed)
+        if (!isOpen) {
+            answer.classList.add('open');
+            if (icon) icon.style.transform = 'rotate(180deg)';
+        }
+    }
+
+    // Scroll reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
+
+</body>
+</html>

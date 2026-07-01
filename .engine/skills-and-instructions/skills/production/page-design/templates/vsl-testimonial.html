@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #E8590C;
+      --text: #1A1A2E;
+      --text-light: #4A4A68;
+      --bg: #FFFFFF;
+      --bg-alt: #F8F9FA;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    body { font-family: var(--font); color: var(--text); background: var(--bg); }
+
+    /* HERO (dark) */
+    .hero {
+      background: #0F0F23;
+      color: #fff;
+      padding: 48px 16px 64px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .video-wrap {
+      max-width: 800px;
+      margin: 0 auto 32px;
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+    }
+    .video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+    .cta {
+      display: inline-block;
+      padding: 18px 48px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      font-family: var(--font);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(232,89,12,0.4);
+    }
+    .sub-cta {
+      font-size: 0.875rem;
+      opacity: 0.6;
+      margin-top: 12px;
+    }
+
+    /* TESTIMONIAL WALL */
+    .testimonials {
+      padding: 48px 16px;
+      background: var(--bg-alt);
+    }
+    .testimonials-heading {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .testimonial-card {
+      background: #fff;
+      border: 1px solid #E9ECEF;
+      border-radius: 8px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+    .testimonial-quote-mark { font-size: 4rem; font-family: Georgia, serif; color: var(--accent); opacity: 0.15; position: absolute; top: 12px; left: 20px; line-height: 1; }
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .testimonial-photo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #DEE2E6;
+      border: 3px solid var(--accent);
+    }
+    .testimonial-name {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .testimonial-role {
+      font-size: 0.8125rem;
+      color: var(--text-light);
+    }
+    .testimonial-stars {
+      color: #F59E0B;
+      font-size: 0.875rem;
+      letter-spacing: 2px;
+    }
+    .testimonial-quote {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text-light);
+      font-style: italic;
+    }
+
+    /* FINAL CTA */
+    .final-cta {
+      background: #0F0F23;
+      color: #fff;
+      text-align: center;
+      padding: 64px 16px;
+    }
+    .final-cta h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .final-cta p {
+      font-size: 1.0625rem;
+      opacity: 0.8;
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      font-size: 0.8125rem;
+      color: #ADB5BD;
+    }
+
+    /* Scroll Fade-In */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* Sticky Mobile CTA */
+    .sticky-cta { display: none; position: fixed; bottom: 0; left: 0; width: 100%; padding: 12px 16px; background: #fff; box-shadow: 0 -2px 12px rgba(0,0,0,0.1); z-index: 9999; }
+    .sticky-cta-btn { display: block; width: 100%; padding: 16px; font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; text-decoration: none; border-radius: 6px; background: var(--accent); color: #fff; }
+    @media (min-width: 768px) {
+      .hero { padding: 80px 24px 96px; }
+      .hero h1 { font-size: 2.5rem; }
+      .testimonials { padding: 80px 24px; }
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .final-cta { padding: 96px 24px; }
+      .final-cta h2 { font-size: 2.25rem; }
+      .sticky-cta { display: none !important; }
+    }
+    @media (min-width: 1024px) {
+      .testimonials-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO: VIDEO + CTA -->
+  <section class="hero">
+    <h1>{{HEADLINE}}</h1>
+    <div class="video-wrap">
+      <iframe src="{{VIDEO_EMBED_URL}}" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <a href="#" class="cta">{{CTA_TEXT}}</a>
+    <p class="sub-cta">{{SUB_CTA_TEXT}}</p>
+  </section>
+
+  <!-- TESTIMONIAL WALL -->
+  <section class="testimonials fade-in">
+    <h2 class="testimonials-heading">{{TESTIMONIALS_HEADLINE}}</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <span class="testimonial-quote-mark">&ldquo;</span>
+        <div class="testimonial-header">
+          <img class="testimonial-photo" src="{{TESTIMONIAL_1_PHOTO}}" alt="{{TESTIMONIAL_1_NAME}}" loading="lazy">
+          <div>
+            <div class="testimonial-name">{{TESTIMONIAL_1_NAME}}</div>
+            <div class="testimonial-role">{{TESTIMONIAL_1_ROLE}}</div>
+          </div>
+        </div>
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-quote">"{{TESTIMONIAL_1_QUOTE}}"</p>
+      </div>
+
+      <div class="testimonial-card">
+        <span class="testimonial-quote-mark">&ldquo;</span>
+        <div class="testimonial-header">
+          <img class="testimonial-photo" src="{{TESTIMONIAL_2_PHOTO}}" alt="{{TESTIMONIAL_2_NAME}}" loading="lazy">
+          <div>
+            <div class="testimonial-name">{{TESTIMONIAL_2_NAME}}</div>
+            <div class="testimonial-role">{{TESTIMONIAL_2_ROLE}}</div>
+          </div>
+        </div>
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-quote">"{{TESTIMONIAL_2_QUOTE}}"</p>
+      </div>
+
+      <div class="testimonial-card">
+        <span class="testimonial-quote-mark">&ldquo;</span>
+        <div class="testimonial-header">
+          <img class="testimonial-photo" src="{{TESTIMONIAL_3_PHOTO}}" alt="{{TESTIMONIAL_3_NAME}}" loading="lazy">
+          <div>
+            <div class="testimonial-name">{{TESTIMONIAL_3_NAME}}</div>
+            <div class="testimonial-role">{{TESTIMONIAL_3_ROLE}}</div>
+          </div>
+        </div>
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-quote">"{{TESTIMONIAL_3_QUOTE}}"</p>
+      </div>
+
+      <div class="testimonial-card">
+        <span class="testimonial-quote-mark">&ldquo;</span>
+        <div class="testimonial-header">
+          <img class="testimonial-photo" src="{{TESTIMONIAL_4_PHOTO}}" alt="{{TESTIMONIAL_4_NAME}}" loading="lazy">
+          <div>
+            <div class="testimonial-name">{{TESTIMONIAL_4_NAME}}</div>
+            <div class="testimonial-role">{{TESTIMONIAL_4_ROLE}}</div>
+          </div>
+        </div>
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-quote">"{{TESTIMONIAL_4_QUOTE}}"</p>
+      </div>
+
+      <div class="testimonial-card">
+        <span class="testimonial-quote-mark">&ldquo;</span>
+        <div class="testimonial-header">
+          <img class="testimonial-photo" src="{{TESTIMONIAL_5_PHOTO}}" alt="{{TESTIMONIAL_5_NAME}}" loading="lazy">
+          <div>
+            <div class="testimonial-name">{{TESTIMONIAL_5_NAME}}</div>
+            <div class="testimonial-role">{{TESTIMONIAL_5_ROLE}}</div>
+          </div>
+        </div>
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-quote">"{{TESTIMONIAL_5_QUOTE}}"</p>
+      </div>
+
+      <div class="testimonial-card">
+        <span class="testimonial-quote-mark">&ldquo;</span>
+        <div class="testimonial-header">
+          <img class="testimonial-photo" src="{{TESTIMONIAL_6_PHOTO}}" alt="{{TESTIMONIAL_6_NAME}}" loading="lazy">
+          <div>
+            <div class="testimonial-name">{{TESTIMONIAL_6_NAME}}</div>
+            <div class="testimonial-role">{{TESTIMONIAL_6_ROLE}}</div>
+          </div>
+        </div>
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-quote">"{{TESTIMONIAL_6_QUOTE}}"</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <h2>{{FINAL_HEADLINE}}</h2>
+    <p>{{FINAL_BODY}}</p>
+    <a href="#" class="cta">{{CTA_TEXT}}</a>
+  </section>
+
+  <footer>&copy; {{YEAR}} {{BRAND}}. All rights reserved.</footer>
+
+  <div class="sticky-cta" id="stickyCta">
+    <a href="#" class="sticky-cta-btn">{{CTA_TEXT}}</a>
+  </div>
+  <script>
+    (function() {
+      var cta = document.querySelector('.cta');
+      var sticky = document.getElementById('stickyCta');
+      if (!cta || !sticky) return;
+      var observer = new IntersectionObserver(function(entries) {
+        sticky.style.display = entries[0].isIntersecting ? 'none' : 'block';
+      }, { threshold: 0 });
+      observer.observe(cta);
+    })();
+    // Scroll fade-in
+    (function() {
+      var faders = document.querySelectorAll('.fade-in');
+      var fadeObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); }
+        });
+      }, { threshold: 0.1 });
+      faders.forEach(function(el) { fadeObserver.observe(el); });
+    })();
+  </script>
+</body>
+</html>

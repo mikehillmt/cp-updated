@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #E8590C;
+      --text: #1A1A2E;
+      --text-light: #4A4A68;
+      --bg: #FFFFFF;
+      --bg-alt: #F8F9FA;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    body { font-family: var(--font); color: var(--text); background: var(--bg); }
+
+    /* HERO (dark) */
+    .hero {
+      background: #0F0F23;
+      color: #fff;
+      padding: 48px 16px 64px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .video-wrap {
+      max-width: 800px;
+      margin: 0 auto 32px;
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+    }
+    .video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+    .cta {
+      display: inline-block;
+      padding: 18px 48px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      font-family: var(--font);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(232,89,12,0.4);
+    }
+    .sub-cta {
+      font-size: 0.875rem;
+      opacity: 0.6;
+      margin-top: 12px;
+    }
+
+    /* SECTIONS */
+    .section { padding: 48px 16px; }
+    .section-alt { background: var(--bg-alt); }
+    .inner { max-width: 680px; margin: 0 auto; }
+
+    /* PROBLEM AGITATION */
+    .problem h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .problem p {
+      font-size: 1.0625rem;
+      color: var(--text-light);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .problem p:last-child { margin-bottom: 0; }
+
+    /* BENEFITS */
+    .benefits-heading {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+    .benefits-list {
+      list-style: none;
+    }
+    .benefits-list li {
+      position: relative;
+      padding-left: 32px;
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+    .benefits-list li::before {
+      content: "\2713";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 1.25rem;
+    }
+
+    /* TESTIMONIALS */
+    .testimonials-heading {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .testimonial-card {
+      background: #fff;
+      border: 1px solid #E9ECEF;
+      border-radius: 8px;
+      padding: 24px;
+    }
+    .testimonial-card p {
+      font-size: 1rem;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--text-light);
+      margin-bottom: 12px;
+    }
+    .testimonial-card cite {
+      font-size: 0.875rem;
+      font-style: normal;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* FAQ ACCORDION */
+    .faq-heading {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+    .faq-item {
+      border-bottom: 1px solid #E9ECEF;
+    }
+    .faq-item:first-child {
+      border-top: 1px solid #E9ECEF;
+    }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 20px 40px 20px 0;
+      font-family: var(--font);
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      position: relative;
+    }
+    .faq-q::after {
+      content: "+";
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--text-light);
+      transition: transform 0.2s;
+    }
+    .faq-q[aria-expanded="true"]::after {
+      content: "\2212";
+    }
+    .faq-a {
+      display: none;
+      padding: 0 0 20px;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text-light);
+    }
+    .faq-a.open { display: block; }
+
+    /* FINAL CTA */
+    .final-cta {
+      background: #0F0F23;
+      color: #fff;
+      text-align: center;
+      padding: 64px 16px;
+    }
+    .final-cta h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .final-cta p {
+      font-size: 1.0625rem;
+      opacity: 0.8;
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      font-size: 0.8125rem;
+      color: #ADB5BD;
+    }
+
+    /* Scroll Fade-In */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* Sticky Mobile CTA */
+    .sticky-cta { display: none; position: fixed; bottom: 0; left: 0; width: 100%; padding: 12px 16px; background: #fff; box-shadow: 0 -2px 12px rgba(0,0,0,0.1); z-index: 9999; }
+    .sticky-cta-btn { display: block; width: 100%; padding: 16px; font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; text-decoration: none; border-radius: 6px; background: var(--accent); color: #fff; }
+    @media (min-width: 768px) {
+      .hero { padding: 80px 24px 96px; }
+      .hero h1 { font-size: 2.5rem; }
+      .section { padding: 80px 24px; }
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .final-cta { padding: 96px 24px; }
+      .final-cta h2 { font-size: 2.25rem; }
+      .sticky-cta { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO: VIDEO + CTA -->
+  <section class="hero">
+    <h1>{{HEADLINE}}</h1>
+    <div class="video-wrap">
+      <iframe src="{{VIDEO_EMBED_URL}}" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <a href="#" class="cta">{{CTA_TEXT}}</a>
+    <p class="sub-cta">{{SUB_CTA_TEXT}}</p>
+  </section>
+
+  <!-- PROBLEM AGITATION -->
+  <section class="section fade-in">
+    <div class="inner problem">
+      <h2>{{PROBLEM_HEADLINE}}</h2>
+      <p>{{PROBLEM_PARAGRAPH_1}}</p>
+      <p>{{PROBLEM_PARAGRAPH_2}}</p>
+      <p>{{PROBLEM_PARAGRAPH_3}}</p>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="section section-alt fade-in">
+    <div class="inner">
+      <h2 class="benefits-heading">{{BENEFITS_HEADLINE}}</h2>
+      <ul class="benefits-list">
+        <li>{{BENEFIT_1}}</li>
+        <li>{{BENEFIT_2}}</li>
+        <li>{{BENEFIT_3}}</li>
+        <li>{{BENEFIT_4}}</li>
+        <li>{{BENEFIT_5}}</li>
+        <li>{{BENEFIT_6}}</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section fade-in">
+    <div class="inner">
+      <h2 class="testimonials-heading">{{TESTIMONIALS_HEADLINE}}</h2>
+    </div>
+    <div class="testimonials-grid" style="padding: 0 16px;">
+      <div class="testimonial-card">
+        <p>"{{TESTIMONIAL_1_QUOTE}}"</p>
+        <cite>{{TESTIMONIAL_1_NAME}}</cite>
+      </div>
+      <div class="testimonial-card">
+        <p>"{{TESTIMONIAL_2_QUOTE}}"</p>
+        <cite>{{TESTIMONIAL_2_NAME}}</cite>
+      </div>
+      <div class="testimonial-card">
+        <p>"{{TESTIMONIAL_3_QUOTE}}"</p>
+        <cite>{{TESTIMONIAL_3_NAME}}</cite>
+      </div>
+      <div class="testimonial-card">
+        <p>"{{TESTIMONIAL_4_QUOTE}}"</p>
+        <cite>{{TESTIMONIAL_4_NAME}}</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ ACCORDION -->
+  <section class="section section-alt fade-in">
+    <div class="inner">
+      <h2 class="faq-heading">{{FAQ_HEADLINE}}</h2>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');this.nextElementSibling.classList.toggle('open')">{{FAQ_1_QUESTION}}</button>
+        <div class="faq-a">{{FAQ_1_ANSWER}}</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');this.nextElementSibling.classList.toggle('open')">{{FAQ_2_QUESTION}}</button>
+        <div class="faq-a">{{FAQ_2_ANSWER}}</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');this.nextElementSibling.classList.toggle('open')">{{FAQ_3_QUESTION}}</button>
+        <div class="faq-a">{{FAQ_3_ANSWER}}</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');this.nextElementSibling.classList.toggle('open')">{{FAQ_4_QUESTION}}</button>
+        <div class="faq-a">{{FAQ_4_ANSWER}}</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" onclick="this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true');this.nextElementSibling.classList.toggle('open')">{{FAQ_5_QUESTION}}</button>
+        <div class="faq-a">{{FAQ_5_ANSWER}}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <h2>{{FINAL_HEADLINE}}</h2>
+    <p>{{FINAL_BODY}}</p>
+    <a href="#" class="cta">{{CTA_TEXT}}</a>
+  </section>
+
+  <footer>&copy; {{YEAR}} {{BRAND}}. All rights reserved.</footer>
+
+  <div class="sticky-cta" id="stickyCta">
+    <a href="#" class="sticky-cta-btn">{{CTA_TEXT}}</a>
+  </div>
+  <script>
+    (function() {
+      var cta = document.querySelector('.cta');
+      var sticky = document.getElementById('stickyCta');
+      if (!cta || !sticky) return;
+      var observer = new IntersectionObserver(function(entries) {
+        sticky.style.display = entries[0].isIntersecting ? 'none' : 'block';
+      }, { threshold: 0 });
+      observer.observe(cta);
+    })();
+    // Scroll fade-in
+    (function() {
+      var faders = document.querySelectorAll('.fade-in');
+      var fadeObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); }
+        });
+      }, { threshold: 0.1 });
+      faders.forEach(function(el) { fadeObserver.observe(el); });
+    })();
+  </script>
+</body>
+</html>

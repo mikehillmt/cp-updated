@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #E8590C;
+      --text: #1A1A2E;
+      --text-light: #4A4A68;
+      --bg: #FFFFFF;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    body { font-family: var(--font); color: var(--text); background: var(--bg); }
+
+    /* HERO */
+    .hero {
+      background: #0F0F23;
+      color: #fff;
+      padding: 48px 16px 64px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: #DC2626;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 6px 16px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      animation: pulse-badge 2s ease-in-out infinite;
+    }
+    @keyframes pulse-badge {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .hero h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 8px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero .sub {
+      font-size: 1.0625rem;
+      opacity: 0.7;
+      margin-bottom: 28px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+
+    /* VIDEO */
+    .video-container {
+      max-width: 800px;
+      margin: 0 auto 24px;
+      position: relative;
+    }
+    .replay-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      background: #DC2626;
+      color: #fff;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .replay-dot {
+      width: 8px;
+      height: 8px;
+      background: #E03131;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .video-wrap {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+    }
+    .video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+
+    /* URGENCY */
+    .urgency {
+      max-width: 800px;
+      margin: 0 auto 32px;
+      text-align: center;
+      padding: 16px 20px;
+      background: rgba(220,38,38,0.1);
+      border: 1px solid rgba(220,38,38,0.25);
+      border-radius: 6px;
+    }
+    .urgency p {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: #FCA5A5;
+    }
+
+    /* CTA */
+    .cta {
+      display: inline-block;
+      padding: 18px 48px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      font-family: var(--font);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(232,89,12,0.4);
+    }
+    .sub-cta {
+      font-size: 0.875rem;
+      opacity: 0.6;
+      margin-top: 12px;
+    }
+
+    /* HOST */
+    .host {
+      max-width: 800px;
+      margin: 32px auto 0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+    }
+    .host-photo {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 4px solid var(--accent);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .host-info { font-size: 0.875rem; line-height: 1.5; }
+    .host-name { font-weight: 700; font-size: 1rem; }
+    .host-title { opacity: 0.7; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      font-size: 0.8125rem;
+      color: #ADB5BD;
+    }
+
+    /* Sticky Mobile CTA */
+    .sticky-cta { display: none; position: fixed; bottom: 0; left: 0; width: 100%; padding: 12px 16px; background: #fff; box-shadow: 0 -2px 12px rgba(0,0,0,0.1); z-index: 9999; }
+    .sticky-cta-btn { display: block; width: 100%; padding: 16px; font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; text-decoration: none; border-radius: 6px; background: var(--accent); color: #fff; }
+    @media (min-width: 768px) {
+      .hero { padding: 80px 24px 96px; }
+      .hero h1 { font-size: 2.5rem; }
+      .sticky-cta { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="hero-badge">{{BADGE_TEXT}}</div>
+    <h1>{{HEADLINE}}</h1>
+    <p class="sub">{{SUBHEADLINE}}</p>
+
+    <div class="video-container">
+      <div class="replay-badge">
+        <span class="replay-dot"></span>
+        Replay
+      </div>
+      <div class="video-wrap">
+        <iframe src="{{VIDEO_EMBED_URL}}" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="urgency">
+      <p>{{URGENCY_TEXT}}</p>
+    </div>
+
+    <a href="#" class="cta">{{CTA_TEXT}}</a>
+    <p class="sub-cta">{{SUB_CTA_TEXT}}</p>
+
+    <div class="host">
+      <img class="host-photo" src="{{HOST_PHOTO_URL}}" alt="{{HOST_NAME}}" loading="lazy">
+      <div class="host-info">
+        <div class="host-name">{{HOST_NAME}}</div>
+        <div class="host-title">{{HOST_TITLE}}</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>&copy; {{YEAR}} {{BRAND}}. All rights reserved.</footer>
+
+  <div class="sticky-cta" id="stickyCta">
+    <a href="#" class="sticky-cta-btn">{{CTA_TEXT}}</a>
+  </div>
+  <script>
+    (function() {
+      var cta = document.querySelector('.cta');
+      var sticky = document.getElementById('stickyCta');
+      if (!cta || !sticky) return;
+      var observer = new IntersectionObserver(function(entries) {
+        sticky.style.display = entries[0].isIntersecting ? 'none' : 'block';
+      }, { threshold: 0 });
+      observer.observe(cta);
+    })();
+  </script>
+</body>
+</html>

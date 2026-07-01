@@ -1,0 +1,43 @@
+# Environment variables (contains API keys)
+.env
+.env.local
+.env.*.local
+
+# Node.js
+node_modules/
+package-lock.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.idea/
+.vscode/
+.obsidian/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.temp
+
+# Protected marketing skills (fetched from API at runtime)
+.engine/skills-and-instructions/skills/funnels/
+.engine/skills-and-instructions/skills/tasks/
+
+# Engine internals
+.engine/node_modules/
+.engine/.env
+
+# Playwright MCP logs
+.playwright-mcp/
+
+# Workspace temp files
+campaigns/*/output-assets/presentations/workspace/node_modules/
+campaigns/*/output-assets/presentations/workspace/create-slides.cjs
+campaigns/*/output-assets/presentations/workspace/package.json
+campaigns/*/output-assets/presentations/workspace/package-lock.json
+
+# Internal planning docs (not for distribution)
+docs/

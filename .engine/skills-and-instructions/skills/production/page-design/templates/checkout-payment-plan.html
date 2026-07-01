@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}} - Checkout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #228BE6;
+      --text: #1A1A2E;
+      --text-light: #4A4A68;
+      --bg: #F8F9FA;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+    .checkout-card {
+      max-width: 520px;
+      width: 100%;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .description {
+      font-size: 1rem;
+      color: var(--text-light);
+      line-height: 1.5;
+      margin-bottom: 32px;
+    }
+    .description strong { color: var(--text); }
+    .plan-options {
+      margin-bottom: 24px;
+    }
+    .plan-options h3 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .plan-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      border: 2px solid #DEE2E6;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .plan-option:hover {
+      border-color: #ADB5BD;
+    }
+    .plan-option.selected {
+      border-color: var(--accent);
+      background: #E7F5FF;
+    }
+    .plan-option input[type="radio"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .plan-details {
+      flex: 1;
+    }
+    .plan-name {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .plan-sub {
+      font-size: 0.8125rem;
+      color: var(--text-light);
+    }
+    .plan-price {
+      font-size: 1.125rem;
+      font-weight: 800;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    .plan-badge {
+      display: inline-block;
+      background: #40C057;
+      color: #fff;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-left: 8px;
+    }
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .form-field {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 1rem;
+      font-family: var(--font);
+      border: 2px solid #DEE2E6;
+      border-radius: 6px;
+      background: #fff;
+      margin-bottom: 20px;
+      transition: border-color 0.15s;
+    }
+    .form-field:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .order-summary {
+      background: #F8F9FA;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .order-summary h3 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .order-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9375rem;
+      margin-bottom: 8px;
+    }
+    .order-line.total {
+      font-weight: 700;
+      font-size: 1.0625rem;
+      border-top: 1px solid #DEE2E6;
+      padding-top: 8px;
+      margin-top: 4px;
+    }
+    .cta {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      font-size: 1.125rem;
+      font-weight: 700;
+      font-family: var(--font);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+      transition: transform 0.15s, box-shadow 0.15s;
+      margin-bottom: 16px;
+    }
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .terms {
+      font-size: 0.8125rem;
+      color: #868E96;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .terms a { color: var(--accent); }
+    .trust-row {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #868E96;
+    }
+    .trust-badge svg {
+      width: 18px;
+      height: 18px;
+      fill: #868E96;
+    }
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      font-size: 0.8125rem;
+      color: #ADB5BD;
+    }
+  </style>
+</head>
+<body>
+  <div class="checkout-card">
+    <h1>{{CHECKOUT_HEADLINE}}</h1>
+    <p class="description">Complete your purchase of <strong>{{PRODUCT_NAME}}</strong> to {{BENEFIT_STATEMENT}}.</p>
+
+    <form action="#" method="POST">
+      <label for="email">Email</label>
+      <input type="email" id="email" class="form-field" placeholder="you@email.com" required>
+
+      <label for="name">Full Name</label>
+      <input type="text" id="name" class="form-field" placeholder="Jane Smith" required>
+
+      <div class="plan-options">
+        <h3>Choose Your Payment Plan</h3>
+        <label class="plan-option selected" id="planFull">
+          <input type="radio" name="plan" value="full" checked>
+          <div class="plan-details">
+            <div class="plan-name">Pay in Full<span class="plan-badge">Best Value</span></div>
+            <div class="plan-sub">One-time payment — save {{SAVINGS_AMOUNT}}</div>
+          </div>
+          <span class="plan-price">{{FULL_PRICE}}</span>
+        </label>
+        <label class="plan-option" id="planMonthly">
+          <input type="radio" name="plan" value="monthly">
+          <div class="plan-details">
+            <div class="plan-name">3 Monthly Payments</div>
+            <div class="plan-sub">Charged today, then every 30 days</div>
+          </div>
+          <span class="plan-price">{{MONTHLY_PRICE}}<span style="font-size:0.75rem;font-weight:600;color:var(--text-light);">/mo</span></span>
+        </label>
+      </div>
+
+      <label for="card">Card Number</label>
+      <input type="text" id="card" class="form-field" placeholder="1234 5678 9012 3456" required>
+
+      <div style="display:flex;gap:12px;">
+        <div style="flex:1;">
+          <label for="exp">Expiry</label>
+          <input type="text" id="exp" class="form-field" placeholder="MM / YY" required>
+        </div>
+        <div style="flex:1;">
+          <label for="cvc">CVC</label>
+          <input type="text" id="cvc" class="form-field" placeholder="123" required>
+        </div>
+      </div>
+
+      <div class="order-summary">
+        <h3>Order Summary</h3>
+        <div class="order-line">
+          <span>{{PRODUCT_NAME}}</span>
+          <span id="summaryPrice">{{FULL_PRICE}}</span>
+        </div>
+        <div class="order-line" id="summaryNote" style="display:none;">
+          <span style="font-size:0.8125rem;color:var(--text-light);">3 payments of {{MONTHLY_PRICE}}</span>
+          <span></span>
+        </div>
+        <div class="order-line total">
+          <span id="totalLabel">Total</span>
+          <span id="orderTotal">{{FULL_PRICE}}</span>
+        </div>
+      </div>
+
+      <button type="submit" class="cta" id="payBtn">Pay {{FULL_PRICE}} Now</button>
+    </form>
+
+    <p class="terms">By purchasing, you agree to our <a href="#">Terms of Service</a>.</p>
+
+    <div class="trust-row">
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+        30-Day Money Back
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+        Secure Checkout
+      </div>
+    </div>
+  </div>
+
+  <footer>&copy; {{YEAR}} {{BRAND}}. All rights reserved.</footer>
+
+  <script>
+    (function() {
+      var planFull = document.getElementById('planFull');
+      var planMonthly = document.getElementById('planMonthly');
+      var summaryPrice = document.getElementById('summaryPrice');
+      var summaryNote = document.getElementById('summaryNote');
+      var orderTotal = document.getElementById('orderTotal');
+      var totalLabel = document.getElementById('totalLabel');
+      var payBtn = document.getElementById('payBtn');
+      var radios = document.querySelectorAll('input[name="plan"]');
+
+      function update() {
+        var selected = document.querySelector('input[name="plan"]:checked').value;
+        planFull.classList.toggle('selected', selected === 'full');
+        planMonthly.classList.toggle('selected', selected === 'monthly');
+
+        if (selected === 'full') {
+          summaryPrice.textContent = '{{FULL_PRICE}}';
+          summaryNote.style.display = 'none';
+          orderTotal.textContent = '{{FULL_PRICE}}';
+          totalLabel.textContent = 'Total';
+          payBtn.textContent = 'Pay {{FULL_PRICE}} Now';
+        } else {
+          summaryPrice.textContent = '{{MONTHLY_TOTAL}}';
+          summaryNote.style.display = 'flex';
+          orderTotal.textContent = '{{MONTHLY_PRICE}}';
+          totalLabel.textContent = 'Due Today';
+          payBtn.textContent = 'Pay {{MONTHLY_PRICE}} Today';
+        }
+      }
+
+      for (var i = 0; i < radios.length; i++) {
+        radios[i].addEventListener('change', update);
+      }
+    })();
+  </script>
+</body>
+</html>
